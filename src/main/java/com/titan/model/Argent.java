@@ -1,4 +1,4 @@
 package com.titan.model;
 
-public final class Argent extends Possession{
+public record Argent(Double valeur) implements Possession {
 }
