@@ -1,4 +1,9 @@
 package com.titan.model;
 
-public record Argent(Double valeur) implements Possession {
+import lombok.Data;
+
+@Data
+public class Argent {
+    private final Double montant;
+    private final Devise devise;
 }
