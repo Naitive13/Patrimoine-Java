@@ -3,14 +3,9 @@ package com.titan.model;
 import java.time.LocalDate;
 import java.util.Set;
 
-public class Patrimoine {
-    private final LocalDate date;
-    private final Double valeur;
-    private final Set<Possession> possessions;
+public record Patrimoine(Personne possesseur, LocalDate date, Double valeur, Set<Possession> possessions) {
 
-    public Patrimoine(LocalDate date, Double valeur, Set<Possession> possessions) {
-        this.date = date;
-        this.valeur = valeur;
-        this.possessions = possessions;
+    public Double projectionFuture (LocalDate dateFuture){
+        return possessions.stream().map(possession -> possession.projectionFuture(dateFuture).getValeur().getMontant()).reduce(Double::sum).get();
     }
 }
