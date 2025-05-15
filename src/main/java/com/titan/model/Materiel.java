@@ -22,7 +22,7 @@ public final class Materiel extends Possession {
         }
 
         int differenceAnnee = dateFuture.getYear()-this.dateAcquisition.getYear();
-        Double nouveauMontant = this.getValeur().getMontant() -(this.getValeur().getMontant() * Math.pow(this.getTauxAmortissement() / 100, differenceAnnee));
+        Double nouveauMontant = this.getValeur().getMontant() * Math.pow(1 - (this.getTauxAmortissement() / 100), differenceAnnee);
         Argent argent = new Argent(nouveauMontant,this.getValeur().getDevise());
 
         return new Materiel(this.getNom(),argent,dateFuture,this.getDateAcquisition(),this.getTauxAmortissement());
