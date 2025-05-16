@@ -17,11 +17,11 @@ public class PatrimoineTest {
     Argent valeurTshirt = new Argent(20_000d, ARIARY);
     Materiel tshirt =
         new Materiel(
-            "T-shirt", valeurTshirt, LocalDate.of(2025, 1, 1), LocalDate.of(2025, 1, 1), 20d);
+            "T-shirt", valeurTshirt, LocalDate.of(2025, 1, 1), LocalDate.of(2025, 1, 1), 0.2d);
     Argent valeurSmartphone = new Argent(1_000_000d, ARIARY);
     Materiel smartphone =
         new Materiel(
-            "Samsung", valeurSmartphone, LocalDate.of(2025, 1, 1), LocalDate.of(2025, 1, 1), 10d);
+            "Samsung", valeurSmartphone, LocalDate.of(2025, 1, 1), LocalDate.of(2025, 1, 1), 0.1d);
     Patrimoine patrimoine =
         new Patrimoine(personne, LocalDate.now(), 0d, Set.of(tshirt, smartphone));
 
