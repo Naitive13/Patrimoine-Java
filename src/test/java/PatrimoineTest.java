@@ -29,6 +29,6 @@ public class PatrimoineTest {
     Double actual2 = patrimoine.projectionFuture(LocalDate.of(2030, 1, 1));
 
     assertEquals(916_000, actual1, "projection d'ici 1 an");
-    assertEquals(597044, Math.round(actual2), "projection d'ici 5 ans");
+    assertEquals(597_044, Math.round(actual2), "projection d'ici 5 ans");
   }
 }
