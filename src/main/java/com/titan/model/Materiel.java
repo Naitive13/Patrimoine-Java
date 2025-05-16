@@ -21,18 +21,15 @@ public final class Materiel extends Possession {
 
   @Override
   public Possession projectionFuture(LocalDate dateFuture) {
-    if (dateFuture.isBefore(this.getDateAcquisition())) {
-      Argent argent = new Argent(0d, this.getValeur().getDevise());
-      return new Compte(this.getNom(), argent, this.getADateDe());
+    if (dateFuture.isBefore(dateAcquisition)) {
+      Argent argent = new Argent(0d, valeur.getDevise());
+      return new Compte(nom, argent, aDateDe);
     }
 
-    int differenceAnnee = dateFuture.getYear() - this.dateAcquisition.getYear();
-    Double nouveauMontant =
-        this.getValeur().getMontant()
-            * Math.pow(1 - (this.getTauxAmortissement() / 100), differenceAnnee);
-    Argent argent = new Argent(nouveauMontant, this.getValeur().getDevise());
+    int differenceAnnee = dateFuture.getYear() - dateAcquisition.getYear();
+    double facteurAmortissementAnnuel = Math.pow(1 - (tauxAmortissement), differenceAnnee);
+    Argent valeurFuture = valeur.multiplier(facteurAmortissementAnnuel);
 
-    return new Materiel(
-        this.getNom(), argent, dateFuture, this.getDateAcquisition(), this.getTauxAmortissement());
+    return new Materiel(nom, valeurFuture, dateFuture, dateAcquisition, tauxAmortissement);
   }
 }
