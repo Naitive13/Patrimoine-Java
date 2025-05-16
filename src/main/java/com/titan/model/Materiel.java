@@ -3,6 +3,8 @@ package com.titan.model;
 import java.time.LocalDate;
 import lombok.Getter;
 
+import static com.titan.model.Argent.ariary;
+
 @Getter
 public final class Materiel extends Possession {
   private final LocalDate dateAcquisition;
@@ -20,10 +22,9 @@ public final class Materiel extends Possession {
   }
 
   @Override
-  public Possession projectionFuture(LocalDate dateFuture) {
+  public Materiel projectionFuture(LocalDate dateFuture) {
     if (dateFuture.isBefore(dateAcquisition)) {
-      Argent argent = new Argent(0d, valeur.getDevise());
-      return new Compte(nom, argent, aDateDe);
+      return new Materiel(nom, ariary(0d), dateFuture, dateAcquisition, tauxAmortissement);
     }
 
     int differenceAnnee = dateFuture.getYear() - dateAcquisition.getYear();
