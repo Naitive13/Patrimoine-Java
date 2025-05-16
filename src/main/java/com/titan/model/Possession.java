@@ -5,9 +5,9 @@ import lombok.Data;
 
 @Data
 public abstract sealed class Possession permits Compte, Materiel, TrainDeVie {
-    private final String nom;
-    private final Argent valeur;
-    private final LocalDate aDateDe;
+    protected final String nom;
+    protected final Argent valeur;
+    protected final LocalDate aDateDe;
 
     public abstract Possession projectionFuture (LocalDate dateFuture);
 }
