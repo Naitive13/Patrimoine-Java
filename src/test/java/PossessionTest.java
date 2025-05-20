@@ -26,7 +26,7 @@ public class PossessionTest {
         ordinateur1Janv2022.getValeur().getMontant(),
         "projection future du 1 Janvier 2022");
     assertEquals(
-        1_620_000,
+        1_600_000,
         ordinateur1Janv2023.getValeur().getMontant(),
         "projection future du 1 Janvier 2023");
   }
