@@ -1,13 +1,9 @@
 package com.titan.model;
 
-import lombok.Getter;
-
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.Month;
-
 import static com.titan.model.Argent.ariary;
-import static java.time.temporal.ChronoUnit.MONTHS;
+
+import java.time.LocalDate;
+import lombok.Getter;
 
 @Getter
 public final class TrainDeVie extends Possession {
@@ -26,6 +22,7 @@ public final class TrainDeVie extends Possession {
     this.financeur = financeur;
     this.jourDePonction = jourDePonction;
     this.debutDePonction = debutDePonction;
+    this.financeur.financer(this);
   }
 
   @Override
@@ -34,10 +31,14 @@ public final class TrainDeVie extends Possession {
       return new TrainDeVie(nom, ariary(0d), aDateDe, financeur, jourDePonction, debutDePonction);
     }
 
-    int moisEcoulee = (int) MONTHS.between(dateFuture,debutDePonction);
+    long nombreTransaction =
+        debutDePonction
+            .datesUntil(dateFuture.plusDays(1))
+            .filter(localDate -> localDate.getDayOfMonth() == jourDePonction)
+            .count();
+    Argent argentFuture = valeur.multiplier(nombreTransaction);
 
-    if(dateFuture.getDayOfMonth() >= jourDePonction){
-      Argent valeurFuture = financeur.getValeur().soustraire(ariary(valeur.getMontant()*moisEcoulee));
-    }
+    return new TrainDeVie(
+        nom, argentFuture, dateFuture, financeur, jourDePonction, debutDePonction);
   }
 }

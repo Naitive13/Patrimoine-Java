@@ -28,8 +28,9 @@ public final class Materiel extends Possession {
     }
 
     int differenceAnnee = dateFuture.getYear() - dateAcquisition.getYear();
-    double facteurAmortissementAnnuel = Math.pow(1 - (tauxAmortissement), differenceAnnee);
-    Argent valeurFuture = valeur.multiplier(facteurAmortissementAnnuel);
+    Argent valeurAmoritssement = valeur.multiplier(tauxAmortissement);
+    Argent valeurFuture = valeur.soustraire(valeurAmoritssement.multiplier(differenceAnnee));
+
 
     return new Materiel(nom, valeurFuture, dateFuture, dateAcquisition, tauxAmortissement);
   }
