@@ -1,13 +1,10 @@
 package com.titan.model;
 
-import lombok.Getter;
-
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.Month;
-
 import static com.titan.model.Argent.ariary;
 import static java.time.temporal.ChronoUnit.MONTHS;
+
+import java.time.LocalDate;
+import lombok.Getter;
 
 @Getter
 public final class TrainDeVie extends Possession {
@@ -34,10 +31,14 @@ public final class TrainDeVie extends Possession {
       return new TrainDeVie(nom, ariary(0d), aDateDe, financeur, jourDePonction, debutDePonction);
     }
 
-    int moisEcoulee = (int) MONTHS.between(dateFuture,debutDePonction);
+    int moisEcoulee = (int) MONTHS.between(debutDePonction, dateFuture);
 
-    if(dateFuture.getDayOfMonth() >= jourDePonction){
-      Argent valeurFuture = financeur.getValeur().soustraire(ariary(valeur.getMontant()*moisEcoulee));
+    if (dateFuture.getDayOfMonth() >= jourDePonction) {
+      moisEcoulee -= 1;
     }
+    Argent valeurRestante =
+        financeur.getValeur().soustraire(ariary(valeur.getMontant() * moisEcoulee));
+    Compte financeurFutur = new Compte(financeur.getNom(), valeurRestante, dateFuture);
+    return new TrainDeVie(nom, valeur, dateFuture, financeurFutur, jourDePonction, debutDePonction);
   }
 }
