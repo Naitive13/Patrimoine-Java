@@ -43,9 +43,9 @@ public class PossessionTest {
             1,
             LocalDate.of(2024, 5, 13));
 
-    TrainDeVie actuel = trainDeVie.projectionFuture(LocalDate.of(2024, 6, 26));
+    TrainDeVie actuel = trainDeVie.projectionFuture(LocalDate.of(2024, 7, 26));
 
     assertEquals(
-        100_000, actuel.getFinanceur().getValeur().getMontant(), "projection du 26 juin 2024");
+        1_000_000, actuel.getValeur().getMontant(), "projection du 26 juin 2024");
   }
 }

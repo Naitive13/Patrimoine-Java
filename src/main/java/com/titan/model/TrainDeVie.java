@@ -1,7 +1,6 @@
 package com.titan.model;
 
 import static com.titan.model.Argent.ariary;
-import static java.time.temporal.ChronoUnit.MONTHS;
 
 import java.time.LocalDate;
 import lombok.Getter;
@@ -31,14 +30,14 @@ public final class TrainDeVie extends Possession {
       return new TrainDeVie(nom, ariary(0d), aDateDe, financeur, jourDePonction, debutDePonction);
     }
 
-    int moisEcoulee = (int) MONTHS.between(debutDePonction, dateFuture);
+    long nombreTransaction =
+        debutDePonction
+            .datesUntil(dateFuture.plusDays(1))
+            .filter(localDate -> localDate.getDayOfMonth() == jourDePonction)
+            .count();
+    Argent argentFuture = valeur.multiplier(nombreTransaction);
 
-    if (dateFuture.getDayOfMonth() >= jourDePonction) {
-      moisEcoulee -= 1;
-    }
-    Argent valeurRestante =
-        financeur.getValeur().soustraire(ariary(valeur.getMontant() * moisEcoulee));
-    Compte financeurFutur = new Compte(financeur.getNom(), valeurRestante, dateFuture);
-    return new TrainDeVie(nom, valeur, dateFuture, financeurFutur, jourDePonction, debutDePonction);
+    return new TrainDeVie(
+        nom, argentFuture, dateFuture, financeur, jourDePonction, debutDePonction);
   }
 }
