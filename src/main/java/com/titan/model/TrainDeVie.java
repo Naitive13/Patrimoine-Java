@@ -22,6 +22,7 @@ public final class TrainDeVie extends Possession {
     this.financeur = financeur;
     this.jourDePonction = jourDePonction;
     this.debutDePonction = debutDePonction;
+    this.financeur.financer(this);
   }
 
   @Override
