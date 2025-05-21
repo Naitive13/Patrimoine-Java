@@ -7,28 +7,32 @@ public class Argent {
   private final Double montant;
   private final Devise devise;
 
-  public static Argent ariary(double montant){
+  public static Argent ariary(double montant) {
     return new Argent(montant, Devise.ARIARY);
   }
 
-  public static Argent euro(double montant){
+  public static Argent euro(double montant) {
     return new Argent(montant, Devise.EURO);
   }
 
-  public static Argent usDollar(double montant){
+  public static Argent usDollar(double montant) {
     return new Argent(montant, Devise.USD);
   }
 
-  public Argent convertir (Devise nouvelleDevise){
-    return new Argent((montant*devise.getValeurEnAriary())/nouvelleDevise.getValeurEnAriary(),nouvelleDevise);
+  public Argent convertir(Devise nouvelleDevise) {
+    return new Argent(
+        (montant * devise.getValeurEnAriary()) / nouvelleDevise.getValeurEnAriary(),
+        nouvelleDevise);
   }
 
   public Argent additionner(Argent argent) {
-    return new Argent(this.montant + argent.getMontant(), this.devise);
+    var converti = argent.convertir(this.devise);
+    return new Argent(this.montant + converti.getMontant(), this.devise);
   }
 
   public Argent soustraire(Argent argent) {
-    return new Argent(this.montant - argent.getMontant(), this.devise);
+    var converti = argent.convertir(this.devise);
+    return new Argent(this.montant - converti.getMontant(), this.devise);
   }
 
   public Argent multiplier(double facteur) {
