@@ -10,4 +10,7 @@ public abstract sealed class Possession permits Compte, Materiel, TrainDeVie {
     protected final LocalDate aDateDe;
 
     public abstract Possession projectionFuture (LocalDate dateFuture);
+    public Argent valeurFuture (LocalDate dateFuture, Devise devise){
+        return projectionFuture(dateFuture).getValeur().convertir(devise);
+    }
 }
