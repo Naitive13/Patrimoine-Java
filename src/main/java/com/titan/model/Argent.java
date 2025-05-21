@@ -19,6 +19,10 @@ public class Argent {
     return new Argent(montant, Devise.USD);
   }
 
+  public Argent convertir (Devise nouvelleDevise){
+    return new Argent((montant*devise.getValeurEnAriary())/nouvelleDevise.getValeurEnAriary(),nouvelleDevise);
+  }
+
   public Argent additionner(Argent argent) {
     return new Argent(this.montant + argent.getMontant(), this.devise);
   }
